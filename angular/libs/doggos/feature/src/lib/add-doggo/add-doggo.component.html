@@ -1,0 +1,70 @@
+<h2>Add new Doggo</h2>
+
+<form [formGroup]="formGroup" (ngSubmit)="addDoggo()">
+  <div class="mb-3">
+    <label for="doggoname" class="form-label">Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="doggoname"
+      formControlName="name"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="doggobreed" class="form-label">Breed</label>
+    <input
+      type="text"
+      class="form-control"
+      id="doggobreed"
+      formControlName="breed"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="doggocomment" class="form-label">Comment</label>
+    <input
+      type="text"
+      class="form-control"
+      id="doggocomment"
+      formControlName="comment"
+    />
+  </div>
+
+  <input
+    hidden
+    #fileInput
+    type="file"
+    id="file"
+    accept="image/*"
+    (change)="setFormData(fileInput.files)"
+  />
+
+  <div>
+    <img [src]="base64" />
+  </div>
+
+  <label>{{ filename }} </label>
+
+  <div class="d-flex justify-content-between mt-3">
+    <div class="mb-10">
+      <button type="button" class="btn btn-primary me-2" (click)="takePhoto()">
+        <i class="fa-solid fa-camera"></i> Take picture
+      </button>
+      <button class="btn btn-primary" type="button" (click)="fileInput.click()">
+        <i class="fa-regular fa-file"></i> Choose File
+      </button>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary mt-6"
+      [disabled]="!formGroup.valid || loading() === true"
+    >
+      @if(loading() === true){
+      <div class="spinner-border spinner-border-sm" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      }
+      <i class="fa-solid fa-plus"></i> Add Doggo
+    </button>
+  </div>
+</form>
